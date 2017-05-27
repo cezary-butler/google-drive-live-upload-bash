@@ -1,0 +1,10 @@
+[Unit]
+Description=GSync watch service
+
+[Service]
+ExecStart=/home/gsync/watch-today.sh 
+User=gsync
+
+
+[Install]
+WantedBy=multi-user.target
