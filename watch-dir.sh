@@ -11,8 +11,15 @@ rm -f /home/gsync/pipes/split
 mkfifo /home/gsync/pipes/files
 mkfifo /home/gsync/pipes/split
 
+INOTIFY_ARGS="--format '%w%f' -rme close_write"
+
+if [ $2 ]
+  then
+  INOTIFY_ARGS="$INOTIFY_ARGS -t $2"
+fi
+
 #todo sposob na monitorowanie tylko najnowszych w strukturze po 1 na poziom na pewno bez -r
-inotifywait --format '%w%f' -rme close_write $DIRECTORY  > /home/gsync/pipes/files &
+inotifywait $INOTIFY_ARGS $DIRECTORY  > /home/gsync/pipes/files &
 
 echo 'Initialized inotify'
 sleep 1
