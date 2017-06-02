@@ -9,14 +9,14 @@ DAY_SECONDS=86400
 echo CAMERA_ID = $CAMERA_ID
 echo TODAY_PATH = $TODAY_PATH
 
-if [ ! -d $BASE_PATH ]
+if [ ! -d $BASE_PATH ]; then
   echo "base directory $BASE_PATH does not exists"
   exit 1
 fi
 
 function waitForDir {
   echo "Waiting for dir $1"
-  while [ ! -d $1 ] do
+  while [ ! -d $1 ]; do
     inotifywait -e create $(dirname $1) -t $DAY_SECONDS
   done
 }
@@ -30,6 +30,8 @@ WORK_PATH=$WORK_PATH/$(date '+%y')
 waitForDir $WORK_PATH
 
 WORK_PATH=$WORK_PATH/$(date '+%m')
+
+waitForDir $WORK_PATH
 
 if [ ! -d ${WATCH_PATH} ]; then
   echo "Directory " ${WATCH_PATH} "not found."
