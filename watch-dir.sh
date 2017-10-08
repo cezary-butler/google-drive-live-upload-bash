@@ -16,7 +16,7 @@ rm -f ${FILES} ${SPLIT}
 mkfifo ${FILES}
 mkfifo ${SPLIT}
 
-INOTIFY_ARGS="--format '%w%f' -rme close_write"
+INOTIFY_ARGS="--format %w%f -rme close_write"
 
 if [ $2 ]
   then
@@ -48,7 +48,7 @@ function gdrive-upload {
 
 #split -ul 25 --filter='tar-live | gdrive-upload' ${SPLIT} &
 
-split -ul 25  --filter="tee $FILE" ${SPLIT} &
+split -ul 25  --filter="tar --no-seek -cjf $$FILE -T - " ${SPLIT} &
 
 echo 'Split initialized'
 sleep 1
