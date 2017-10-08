@@ -29,7 +29,10 @@ inotifywait $INOTIFY_ARGS $DIRECTORY  > ${FILES} &
 echo 'Initialized inotify'
 sleep 1
 
-cat ${FILES} | tee ${SPLIT}  &
+#cat ${FILES} | tee ${SPLIT}  &
+cat ${FILES} > ${SPLIT}  &
+
+#cat ${SPLIT} &
 
 echo 'Stream redirected for split'
 
@@ -45,7 +48,7 @@ function gdrive-upload {
 
 #split -ul 25 --filter='tar-live | gdrive-upload' ${SPLIT} &
 
-split -ul 2 --filter'stat' &
+split -ul 2  --filter=stat ${SPLIT} &
 
 echo 'Split initialized'
 sleep 1
