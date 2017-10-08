@@ -48,7 +48,7 @@ function gdrive-upload {
 
 #split -ul 25 --filter='tar-live | gdrive-upload' ${SPLIT} &
 
-split -ul 2  --filter=stat ${SPLIT} &
+split -ul 25  --filter="tee $FILE" ${SPLIT} &
 
 echo 'Split initialized'
 sleep 1
