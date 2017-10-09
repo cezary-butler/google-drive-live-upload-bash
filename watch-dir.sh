@@ -31,7 +31,7 @@ inotifywait $INOTIFY_ARGS $DIRECTORY  > ${FILES} &
 echo 'Initialized inotify'
 sleep 1
 
-split -ul 25 --filter="tar --no-seek -cjf - -T - | ${GSYNCD}/gdrive-upload.sh" ${FILES} &
+split -ul 25 --filter="tar --no-seek -cjf - -T - | ${PWD}/gdrive-upload.sh" ${FILES} &
 
 echo 'Split initialized'
 sleep 1
