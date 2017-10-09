@@ -3,6 +3,7 @@
 echo 'Setting up trap for children'
 trap 'kill $(jobs -p)' EXIT
 DIRECTORY=$1
+DIRECTORY_DEPTH=$(echo ${DIRECTORY} | grep -o / | wc -l)
 
 echo 'Starting directory watch on ' $DIRECTORY
 
@@ -31,7 +32,7 @@ inotifywait $INOTIFY_ARGS $DIRECTORY  > ${FILES} &
 echo 'Initialized inotify'
 sleep 1
 
-split -ul 25 --filter="tar --no-seek -cjf - -T - | ${PWD}/gdrive-upload.sh" ${FILES} &
+split -ul 25 --filter="tar --strip-components ${DIRECTORY_DEPTH} ${DIRECTORY} --no-seek -cjf - -T - | ./gdrive-upload.sh" ${FILES} &
 
 echo 'Split initialized'
 sleep 1

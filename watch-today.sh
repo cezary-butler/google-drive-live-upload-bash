@@ -39,4 +39,4 @@ if [ ! -d ${WATCH_PATH} ]; then
   echo "Directory appeared "
 fi
 
-watch-dir.sh ${WATCH_PATH}
+./watch-dir.sh ${WATCH_PATH}

@@ -3,9 +3,9 @@ Description=GSync watch service
 
 #TODO read camera ids from configuration
 [Service]
+WorkingDirectory=/home/gsync
 ExecStart=/home/gsync/watch-today.sh 2
 User=gsync
-
 
 [Install]
 WantedBy=multi-user.target
